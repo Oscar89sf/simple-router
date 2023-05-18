@@ -6,15 +6,31 @@
 // 5 Add some state to the App component
 // 6 Optional, update the state created at #5
 import React, { Component } from "react";
-import Child from "./components/Child";
 class App extends Component {
-  state = { count: 1 };
+  state = { todos: ["Buy Cereals", "Buy Cheese"] };
+  onInput = (e) => {
+    this.setState({ input: e.target.value });
+  };
+  onClick = () => {
+    const todos = [...this.state.todos];
+    todos.push(this.state.input);
+    this.setState({ todos });
+  };
   render() {
+    console.log(this.state);
+    const { todos } = this.state;
     return (
       <>
-        <Child name={"Button 1"} />
-
-        <Child name={"Button 2"} />
+        <h1>Todo list</h1>
+        <div>
+          <input type="text" onInput={this.onInput} />
+          <button onClick={this.onCLick}>Add</button>
+          <ul>
+            {todos.map((todo) => {
+              return <li>{todo}</li>;
+            })}
+          </ul>
+        </div>
       </>
     );
   }
